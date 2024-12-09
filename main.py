@@ -294,7 +294,7 @@ if __name__ == '__main__':
             
             
 
-            input()
+            #input()
             loss = criterion(outputs, labels)
             #print("Forward Pass")
         
