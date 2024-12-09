@@ -172,37 +172,6 @@ with torch.no_grad():
 test_acc = running_corrects.double() / len(test_dataset)
 print(f'Test Accuracy: {test_acc:.4f}')
 
-#Show the predictions
-import matplotlib.pyplot as plt
-
-def imshow(inp, title=None):
-    """Imshow for Tensor."""
-    inp = inp.numpy().transpose((1, 2, 0))
-    mean = np.array([0.485, 0.456, 0.406])
-    std = np.array([0.229, 0.224, 0.225])
-    inp = std * inp + mean
-    inp = np.clip(inp, 0, 1)
-    plt.imshow(inp)
-    if title is not None:
-        plt.title(title)
-    plt.pause(0.001)  # pause a bit so that plots are updated
-
-# Get a batch of test data
-inputs, classes = next(iter(test_loader))
-
-# Make predictions
-model.eval()
-inputs = inputs.to(device)
-outputs = model(inputs)
-_, preds = torch.max(outputs, 1)
-
-# Plot the images with their predicted labels
-plt.figure(figsize=(15, 15))
-for i in range(batch_size):
-    ax = plt.subplot(4, 8, i + 1)
-    ax.axis('off')
-    ax.set_title(f'predicted: {class_names[preds[i]]}')
-    imshow(inputs.cpu().data[i])
-
-plt.show()
-
+# Save the model
+torch.save(model.state_dict(), 'mihirannet.pth')
+print("Model saved")
