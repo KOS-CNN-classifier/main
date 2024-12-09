@@ -134,6 +134,7 @@ data_transforms = {
 }
 #Hi
 data_dir = "/workspace/pattern/main/data/Jute_Pest_Dataset"
+data_dir = "data/Jute_Pest_Dataset"
 image_datasets = {x: datasets.ImageFolder(os.path.join(data_dir, x),
                                           data_transforms[x])
                   for x in ['train', 'val']}
@@ -280,7 +281,7 @@ total_step = len(train_loader)
 if __name__ == '__main__':
     for epoch in range(num_epochs):
        # print("Shit is trainging")
-        for i, (images, labels) in (train_loader):  
+        for (images, labels) in (train_loader):  
             # Move tensors to the configured device
             images = images.to(device)
             labels = labels.to(device)
