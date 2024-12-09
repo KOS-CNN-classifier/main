@@ -133,7 +133,7 @@ data_transforms = {
     ]),
 }
 #Hi
-data_dir = "data\Jute_Pest_Dataset"
+data_dir = "/workspace/pattern/main/data/Jute_Pest_Dataset"
 image_datasets = {x: datasets.ImageFolder(os.path.join(data_dir, x),
                                           data_transforms[x])
                   for x in ['train', 'val']}
