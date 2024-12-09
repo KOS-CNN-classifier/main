@@ -244,13 +244,15 @@ class AlexNet(nn.Module):
 num_classes = 17
 num_epochs = 100
 batch_size = 64
-learning_rate = 0.0005
+learning_rate = 0.00005
 
 model = AlexNet(num_classes).to(device)
 
 # Loss and optimizer
 criterion = nn.CrossEntropyLoss()
-optimizer = torch.optim.SGD(model.parameters(), lr=learning_rate, weight_decay=0.005, momentum=0.9)  
+#optimizer = torch.optim.SGD(model.parameters(), lr=learning_rate, weight_decay=0.005, momentum=0.9)  
+optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate, weight_decay=0.005)
+
 
 
 
