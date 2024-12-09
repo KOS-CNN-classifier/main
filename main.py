@@ -219,41 +219,20 @@ class AlexNet(nn.Module):
                 nn.BatchNorm2d(256),
                 nn.ReLU(),
                 nn.MaxPool2d(kernel_size = 3, stride = 2))
-            # self.layer3 = nn.Sequential(
-            #     nn.Conv2d(256, 384, kernel_size=3, stride=1, padding=1),
-            #     nn.BatchNorm2d(384),
-            #     nn.ReLU())
-            # self.layer4 = nn.Sequential(
-            #     nn.Conv2d(384, 384, kernel_size=3, stride=1, padding=1),
-            #     nn.BatchNorm2d(384),
-            #     nn.ReLU())
-            # self.layer5 = nn.Sequential(
-            #     nn.Conv2d(384, 256, kernel_size=3, stride=1, padding=1),
-            #     nn.BatchNorm2d(256),
-            #     nn.ReLU(),
-            #     nn.MaxPool2d(kernel_size = 3, stride = 2))
+            
             self.fc = nn.Sequential(
-                #nn.Dropout(0.5),
-                #nn.Linear(9216, 4096),
                 nn.Linear(36864, 4096),
                 nn.ReLU())
             self.fc1 = nn.Sequential(
                 nn.Dropout(0.5),
                 nn.Linear(4096, num_classes),
                 nn.Softmax())
-            # self.fc2= nn.Sequential(
-            #     nn.Linear(4096, num_classes))
+           
 
         def forward(self, x):
             out = self.layer1(x)
             out = self.layer2(out)
             out = out.reshape(out.size(0), -1)
-            #print("After Conv shape:", out.shape)
-            #out = self.layer3(out)
-           #out = self.layer4(out)
-            #out = self.layer5(out)
-            #print("After Conv shape:", out.shape)
-            
             #print("After layer2 shape:", out.shape)
             out = self.fc(out)
             out = self.fc1(out)
@@ -263,7 +242,7 @@ class AlexNet(nn.Module):
 
 
 num_classes = 17
-num_epochs = 20
+num_epochs = 100
 batch_size = 64
 learning_rate = 0.005
 
