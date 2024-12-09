@@ -244,7 +244,7 @@ class AlexNet(nn.Module):
 num_classes = 17
 num_epochs = 100
 batch_size = 64
-learning_rate = 0.00005
+learning_rate = 0.0005
 
 model = AlexNet(num_classes).to(device)
 
