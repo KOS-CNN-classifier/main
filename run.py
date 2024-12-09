@@ -6,6 +6,9 @@ from PIL import Image
 import os
 import numpy as np
 
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+
+
 class MihiranNet(nn.Module):
         def __init__(self, num_classes=17):
             super(MihiranNet, self).__init__()
@@ -44,6 +47,7 @@ class MihiranNet(nn.Module):
 model = MihiranNet(num_classes=17)
 model.load_state_dict(torch.load('mihirannet.pth'))
 model.eval()
+
 
 # Define the test data transformations
 test_transform = transforms.Compose([

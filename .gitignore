@@ -1,2 +1,5 @@
 #ignore data directory
 data/
+
+#ignore model directory
+mihirannet.pth

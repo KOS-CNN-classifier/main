@@ -38,7 +38,7 @@ class MihiranNet(nn.Module):
             self.fc1 = nn.Sequential(
                 nn.Dropout(0.2),
                 nn.Linear(4096, num_classes)
-                #nn.Softmax()
+                nn.Softmax()
                 )
            
 
