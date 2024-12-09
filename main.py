@@ -355,12 +355,13 @@ data_transforms = {
         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
     ]),
 }
+batch_size = 32
 
 #data_dir = 'data/Jute_Pest_Dataset'
 data_dir = '/workspace/pattern/main/data/Jute_Pest_Dataset'
 
 image_datasets = {x: datasets.ImageFolder(root=f"{data_dir}/{x}", transform=data_transforms[x]) for x in ['train', 'val']}
-dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=32, shuffle=True, num_workers=4) for x in ['train', 'val']}
+dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=batch_size, shuffle=True, num_workers=4) for x in ['train', 'val']}
 dataset_sizes = {x: len(image_datasets[x]) for x in ['train', 'val']}
 class_names = image_datasets['train'].classes
 
@@ -375,8 +376,10 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 #model = model.to(device)
 num_classes = 17
+
 model = MihiranNet(num_classes).to(device)
 
+learning_rate = 0.0005
 optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate, weight_decay=0.005)
 criterion = nn.CrossEntropyLoss()
 #optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
