@@ -280,7 +280,7 @@ total_step = len(train_loader)
 if __name__ == '__main__':
     for epoch in range(num_epochs):
        # print("Shit is trainging")
-        for i, (images, labels) in enumerate(train_loader):  
+        for i, (images, labels) in (train_loader):  
             # Move tensors to the configured device
             images = images.to(device)
             labels = labels.to(device)
