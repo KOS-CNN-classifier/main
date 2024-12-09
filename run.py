@@ -28,15 +28,15 @@ class MihiranNet(nn.Module):
                 nn.ReLU())
             self.fc1 = nn.Sequential(
                 nn.Dropout(0.2),
-                nn.Linear(4096, num_classes)
-                #nn.Softmax()
+                nn.Linear(4096, num_classes),
+                #nn.Softmax(dim=1) Softmax is incuded in the CrossEntropyLoss() Therefore, no need to include it here
                 )
            
 
         def forward(self, x):
             out = self.layer1(x)
             out = self.layer2(out)
-            out = torch.flatten(out, 1)
+            out = out.reshape(out.size(0), -1)#Flatten the output of the convolutional layers
             #print("After layer2 shape:", out.shape)
             out = self.fc(out)
             out = self.fc1(out)

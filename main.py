@@ -24,17 +24,20 @@ class MihiranNet(nn.Module):
             self.layer1 = nn.Sequential(
                 nn.Conv2d(3, 96, kernel_size=11, stride=4, padding=0),
                 #nn.BatchNorm2d(96),
-                nn.ReLU(),
+                #nn.ReLU(),
+                nn.LeakyReLU(negative_slope=0.01),
                 nn.MaxPool2d(kernel_size = 3, stride = 2))
             self.layer2 = nn.Sequential(
                 nn.Conv2d(96, 256, kernel_size=5, stride=1, padding=2),
                 #nn.BatchNorm2d(256),
-                nn.ReLU(),
-                nn.MaxPool2d(kernel_size = 3, stride = 2))
+                nn.LeakyReLU(negative_slope=0.01),
+                nn.MaxPool2d(kernel_size=3, stride=2)
+            )
             
             self.fc = nn.Sequential(
                 nn.Linear(36864, 4096),
-                nn.ReLU())
+                #nn.ReLU())
+                nn.LeakyReLU(negative_slope=0.01))
             self.fc1 = nn.Sequential(
                 nn.Dropout(0.2),
                 nn.Linear(4096, num_classes),
