@@ -36,7 +36,7 @@ class MihiranNet(nn.Module):
         def forward(self, x):
             out = self.layer1(x)
             out = self.layer2(out)
-            out = out.reshape(out.size(0), -1)
+            out = torch.flatten(out, 1)
             #print("After layer2 shape:", out.shape)
             out = self.fc(out)
             out = self.fc1(out)
@@ -121,4 +121,29 @@ def show_images_with_labels(loader, model, num_images=5):
     plt.show()
 
 # Show some images with their true and predicted labels
-show_images_with_labels(test_loader, model, num_images=10)
+show_images_with_labels(test_loader, model, num_images=40)
+
+
+# Function to calculate class-wise accuracy
+def calculate_class_wise_accuracy(loader, model, num_classes):
+    class_correct = list(0. for i in range(num_classes))
+    class_total = list(0. for i in range(num_classes))
+    
+    with torch.no_grad():
+        for images, labels in loader:
+            outputs = model(images)
+            _, predicted = torch.max(outputs, 1)
+            c = (predicted == labels).squeeze()
+            for i in range(len(labels)):
+                label = labels[i]
+                class_correct[label] += c[i].item()
+                class_total[label] += 1
+
+    for i in range(num_classes):
+        if class_total[i] > 0:
+            print(f'Accuracy of class {i}: {100 * class_correct[i] / class_total[i]:.2f}%')
+        else:
+            print(f'Accuracy of class {i}: N/A (no samples)')
+
+# Calculate and print the class-wise accuracy
+calculate_class_wise_accuracy(test_loader, model, num_classes=17)

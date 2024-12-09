@@ -45,7 +45,7 @@ class MihiranNet(nn.Module):
         def forward(self, x):
             out = self.layer1(x)
             out = self.layer2(out)
-            out = out.reshape(out.size(0), -1)
+            out = out.reshape(out.size(0), -1)#Flatten the output of the convolutional layers
             #print("After layer2 shape:", out.shape)
             out = self.fc(out)
             out = self.fc1(out)
