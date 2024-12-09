@@ -265,31 +265,38 @@ total_step = len(train_loader)
 
 if __name__ == '__main__':
     for epoch in range(num_epochs):
-       # print("Shit is trainging")
         for (images, labels) in (train_loader):  
             # Move tensors to the configured device
             images = images.to(device)
             labels = labels.to(device)
-            #print(labels)
-            #print("Data loded")
             
             # Forward pass
             outputs = model(images)
-            #print(f'Predicted: {torch.argmax(outputs, 1)}, Actual: {labels}')
-            
-            
-
-            #input()
             loss = criterion(outputs, labels)
-            #print("Forward Pass")
         
             # Backward and optimize
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
-        print ('Epoch [{}/{}], Step [{}/], Loss: {:.4f}' .format(epoch+1, num_epochs, total_step, loss.item()))
         
-        # Validation
+        print ('Epoch [{}/{}], Step [{}/{}], Loss: {:.4f}'.format(epoch+1, num_epochs, total_step, len(train_loader), loss.item()))
+        
+        # Training accuracy
+        with torch.no_grad():
+            correct = 0
+            total = 0
+            for images, labels in train_loader:
+                images = images.to(device)
+                labels = labels.to(device)
+                outputs = model(images)
+                _, predicted = torch.max(outputs.data, 1)
+                total += labels.size(0)
+                correct += (predicted == labels).sum().item()
+                del images, labels, outputs
+        
+        print('Accuracy of the network on the {} training images: {} %'.format(total, 100 * correct / total))
+        
+        # Validation accuracy
         with torch.no_grad():
             correct = 0
             total = 0
@@ -302,7 +309,7 @@ if __name__ == '__main__':
                 correct += (predicted == labels).sum().item()
                 del images, labels, outputs
         
-        print('Accuracy of the network on the {} validation images: {} %'.format(5000, 100 * correct / total))
+        print('Accuracy of the network on the {} validation images: {} %'.format(total, 100 * correct / total))
 
 if __name__ == '__main__':
     with torch.no_grad():
