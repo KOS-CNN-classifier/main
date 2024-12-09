@@ -273,7 +273,7 @@ if __name__ == '__main__':
             # Forward pass
             outputs = model(images)
             #print(f'Predicted: {torch.argmax(outputs, 1)}, Actual: {labels}')
-            
+            loss = torch.argmax(outputs, 1)
             
 
             #input()
