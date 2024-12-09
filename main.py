@@ -216,7 +216,7 @@ import torch.optim as optim
 # #             out = self.fc2(out)
 # #             return out
 
-class AlexNet(nn.Module):
+class MihiranNet(nn.Module):
         def __init__(self, num_classes=17):
             super(AlexNet, self).__init__()
             self.layer1 = nn.Sequential(
@@ -375,10 +375,11 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 #model = model.to(device)
 num_classes = 17
-model = AlexNet(num_classes).to(device)
+model = MihiranNet(num_classes).to(device)
 
+optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate, weight_decay=0.005)
 criterion = nn.CrossEntropyLoss()
-optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
+#optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
 scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=7, gamma=0.1)
 
 # Training the model
