@@ -356,7 +356,9 @@ data_transforms = {
     ]),
 }
 
-data_dir = 'data/Jute_Pest_Dataset'
+#data_dir = 'data/Jute_Pest_Dataset'
+data_dir = '/workspace/pattern/main/data/Jute_Pest_Dataset'
+
 image_datasets = {x: datasets.ImageFolder(root=f"{data_dir}/{x}", transform=data_transforms[x]) for x in ['train', 'val']}
 dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=32, shuffle=True, num_workers=4) for x in ['train', 'val']}
 dataset_sizes = {x: len(image_datasets[x]) for x in ['train', 'val']}
