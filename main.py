@@ -289,8 +289,10 @@ if __name__ == '__main__':
             
             # Forward pass
             outputs = model(images)
-            print(outputs)
-            print(labels)
+            print(f'Predicted: {torch.argmax(outputs, 1)}, Actual: {labels}')
+            
+            
+
             input()
             loss = criterion(outputs, labels)
             #print("Forward Pass")
