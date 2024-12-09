@@ -4,6 +4,7 @@ import torchvision.transforms as transforms
 import torchvision.datasets as datasets
 from PIL import Image
 import os
+import numpy as np
 
 class MihiranNet(nn.Module):
         def __init__(self, num_classes=17):
