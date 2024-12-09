@@ -1,8 +1,9 @@
-
 import torch
 import torch.nn as nn
 import torchvision.transforms as transforms
 import torchvision.datasets as datasets
+from PIL import Image
+import os
 
 class MihiranNet(nn.Module):
         def __init__(self, num_classes=17):
@@ -44,11 +45,14 @@ model.load_state_dict(torch.load('mihirannet.pth'))
 model.eval()
 
 # Define the test data transformations
-transform = transforms.Compose([
-transforms.Resize((224, 224)),
-transforms.ToTensor(),
-transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+test_transform = transforms.Compose([
+    transforms.Resize(256),
+    transforms.CenterCrop(224),
+    transforms.ToTensor(),
+    transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
 ])
+
+batch_size = 32
 
 data_dir = "/workspace/pattern/main/data/Jute_Pest_Dataset"
 # Load the test dataset
@@ -75,13 +79,41 @@ print(f'Accuracy of the model on the test images: {accuracy:.2f}%')
 # Function for inference
 def inference(image_path, model):
     image = Image.open(image_path)
-    image = transform(image).unsqueeze(0)
+    image = test_transform(image).unsqueeze(0)
     with torch.no_grad():
         output = model(image)
         _, predicted = torch.max(output.data, 1)
     return predicted.item()
 
-# Example inference
-image_path = 'path_to_single_test_image'
-predicted_class = inference(image_path, model)
-print(f'Predicted class for the image: {predicted_class}')           
+# Test the model on a sample image         
+import matplotlib.pyplot as plt
+
+# Function to show images with true and predicted labels
+def show_images_with_labels(loader, model, num_images=5):
+    model.eval()
+    images_shown = 0
+    fig = plt.figure(figsize=(15, 15))
+    
+    with torch.no_grad():
+        for images, labels in loader:
+            outputs = model(images)
+            _, predicted = torch.max(outputs.data, 1)
+            
+            for i in range(images.size(0)):
+                if images_shown >= num_images:
+                    break
+                ax = fig.add_subplot(num_images // 5 + 1, 5, images_shown + 1, xticks=[], yticks=[])
+                img = images[i].permute(1, 2, 0).numpy()
+                img = img * [0.229, 0.224, 0.225] + [0.485, 0.456, 0.406]  # Unnormalize
+                img = np.clip(img, 0, 1)
+                ax.imshow(img)
+                ax.set_title(f'True: {labels[i].item()} Pred: {predicted[i].item()}')
+                images_shown += 1
+            
+            if images_shown >= num_images:
+                break
+
+    plt.show()
+
+# Show some images with their true and predicted labels
+show_images_with_labels(test_loader, model, num_images=10)
