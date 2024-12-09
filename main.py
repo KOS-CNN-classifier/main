@@ -102,7 +102,7 @@ criterion = nn.CrossEntropyLoss()
 scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=7, gamma=0.1)
 
 # Training the model
-num_epochs = 20
+num_epochs = 50
 
 for epoch in range(num_epochs):
     print(f'Epoch {epoch}/{num_epochs - 1}')
