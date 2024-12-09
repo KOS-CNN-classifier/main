@@ -133,12 +133,12 @@ data_transforms = {
     ]),
 }
 #Hi
-data_dir = "/workspace/pattern/main/data/Jute_Pest_Dataset"
+#data_dir = "/workspace/pattern/main/data/Jute_Pest_Dataset"
 data_dir = "data/Jute_Pest_Dataset"
 image_datasets = {x: datasets.ImageFolder(os.path.join(data_dir, x),
                                           data_transforms[x])
                   for x in ['train', 'val']}
-dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=4,
+dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=64,
                                              shuffle=True, num_workers=4)
               for x in ['train', 'val']}
 dataset_sizes = {x: len(image_datasets[x]) for x in ['train', 'val']}
@@ -147,7 +147,9 @@ class_names = image_datasets['train'].classes
 train_loader = dataloaders['train']
 valid_loader = dataloaders['val']
 
-
+if __name__ == '__main__':
+    for (images, labels) in (train_loader):
+        print(labels)
 
 
 # class AlexNet(nn.Module):
@@ -285,7 +287,7 @@ if __name__ == '__main__':
             # Move tensors to the configured device
             images = images.to(device)
             labels = labels.to(device)
-            #print(labels)
+            print(labels)
             #print("Data loded")
             
             # Forward pass
