@@ -244,11 +244,11 @@ class AlexNet(nn.Module):
             out = self.layer1(x)
             out = self.layer2(out)
             out = out.reshape(out.size(0), -1)
-            print("After Conv shape:", out.shape)
+            #print("After Conv shape:", out.shape)
             #out = self.layer3(out)
            #out = self.layer4(out)
             #out = self.layer5(out)
-            print("After Conv shape:", out.shape)
+            #print("After Conv shape:", out.shape)
             
             #print("After layer2 shape:", out.shape)
             out = self.fc(out)
