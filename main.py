@@ -1,3 +1,4 @@
+
 import numpy as np
 import torch
 import torch.nn as nn
@@ -276,7 +277,7 @@ optimizer = torch.optim.SGD(model.parameters(), lr=learning_rate, weight_decay=0
 
 # Train the model
 total_step = len(train_loader)
-#Hi
+
 
 
 
