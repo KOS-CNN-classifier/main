@@ -294,7 +294,7 @@ if __name__ == '__main__':
             
             
 
-            #input()
+            input()
             loss = criterion(outputs, labels)
             #print("Forward Pass")
         
@@ -302,7 +302,7 @@ if __name__ == '__main__':
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
-        print ('Epoch [{}/{}], Step [{}/{}], Loss: {:.4f}' .format(epoch+1, num_epochs, i+1, total_step, loss.item()))
+        print ('Epoch [{}/{}], Step [{}/], Loss: {:.4f}' .format(epoch+1, num_epochs, total_step, loss.item()))
         
         # Validation
         with torch.no_grad():
