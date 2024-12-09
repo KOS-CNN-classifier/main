@@ -147,9 +147,9 @@ class_names = image_datasets['train'].classes
 train_loader = dataloaders['train']
 valid_loader = dataloaders['val']
 
-if __name__ == '__main__':
-    for (images, labels) in (train_loader):
-        print(labels)
+# if __name__ == '__main__':
+#     for (images, labels) in (train_loader):
+#         print(labels)
 
 
 # class AlexNet(nn.Module):
@@ -287,7 +287,7 @@ if __name__ == '__main__':
             # Move tensors to the configured device
             images = images.to(device)
             labels = labels.to(device)
-            print(labels)
+            #print(labels)
             #print("Data loded")
             
             # Forward pass
