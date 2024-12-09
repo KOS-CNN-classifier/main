@@ -225,8 +225,10 @@ class AlexNet(nn.Module):
                 nn.ReLU())
             self.fc1 = nn.Sequential(
                 nn.Dropout(0.2),
-                nn.Linear(4096, num_classes),
-                nn.Softmax())
+                nn.Linear(4096, num_classes)
+                
+                #nn.Softmax()
+                )
            
 
         def forward(self, x):
@@ -275,7 +277,7 @@ if __name__ == '__main__':
             # Forward pass
             outputs = model(images)
             #print(f'Predicted: {torch.argmax(outputs, 1)}, Actual: {labels}')
-            loss = torch.argmax(outputs, 1)
+            
             
 
             #input()
