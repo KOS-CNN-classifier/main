@@ -257,17 +257,17 @@ if __name__ == '__main__':
         
         print('Accuracy of the network on the {} validation images: {} %'.format(5000, 100 * correct / total))
 
+if __name__ == '__main__':
+    with torch.no_grad():
+        correct = 0
+        total = 0
+        for images, labels in valid_loader:
+            images = images.to(device)
+            labels = labels.to(device)
+            outputs = model(images)
+            _, predicted = torch.max(outputs.data, 1)
+            total += labels.size(0)
+            correct += (predicted == labels).sum().item()
+            del images, labels, outputs
 
-# with torch.no_grad():
-#     correct = 0
-#     total = 0
-#     for images, labels in valid_loader:
-#         images = images.to(device)
-#         labels = labels.to(device)
-#         outputs = model(images)
-#         _, predicted = torch.max(outputs.data, 1)
-#         total += labels.size(0)
-#         correct += (predicted == labels).sum().item()
-#         del images, labels, outputs
-
-#     print('Accuracy of the network on the {} test images: {} %'.format(10000, 100 * correct / total))
+        print('Accuracy of the network on the {} test images: {} %'.format(10000, 100 * correct / total))
