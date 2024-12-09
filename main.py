@@ -218,7 +218,7 @@ import torch.optim as optim
 
 class MihiranNet(nn.Module):
         def __init__(self, num_classes=17):
-            #super(AlexNet, self).__init__()
+            super(MihiranNet, self).__init__()
             self.layer1 = nn.Sequential(
                 nn.Conv2d(3, 96, kernel_size=11, stride=4, padding=0),
                 #nn.BatchNorm2d(96),
