@@ -218,7 +218,7 @@ import torch.optim as optim
 
 class MihiranNet(nn.Module):
         def __init__(self, num_classes=17):
-            super(AlexNet, self).__init__()
+            #super(AlexNet, self).__init__()
             self.layer1 = nn.Sequential(
                 nn.Conv2d(3, 96, kernel_size=11, stride=4, padding=0),
                 #nn.BatchNorm2d(96),
@@ -383,7 +383,7 @@ criterion = nn.CrossEntropyLoss()
 scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=7, gamma=0.1)
 
 # Training the model
-num_epochs = 25
+num_epochs = 20
 
 for epoch in range(num_epochs):
     print(f'Epoch {epoch}/{num_epochs - 1}')
