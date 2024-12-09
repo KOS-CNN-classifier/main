@@ -38,7 +38,7 @@ class MihiranNet(nn.Module):
             self.fc1 = nn.Sequential(
                 nn.Dropout(0.2),
                 nn.Linear(4096, num_classes),
-                nn.Softmax(dim=1)
+                #nn.Softmax(dim=1) Softmax is incuded in the CrossEntropyLoss() Therefore, no need to include it here
                 )
            
 
