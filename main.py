@@ -289,7 +289,9 @@ if __name__ == '__main__':
             
             # Forward pass
             outputs = model(images)
-            #print(outputs)
+            print(outputs)
+            print(labels)
+            input()
             loss = criterion(outputs, labels)
             #print("Forward Pass")
         
