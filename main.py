@@ -193,9 +193,9 @@ class AlexNet(nn.Module):
             out = self.layer3(out)
             out = self.layer4(out)
             out = self.layer5(out)
-            print("After Conv shape:", out.shape)
+            #print("After Conv shape:", out.shape)
             out = out.reshape(out.size(0), -1)
-            print("After layer2 shape:", out.shape)
+            #print("After layer2 shape:", out.shape)
             out = self.fc(out)
             out = self.fc1(out)
             out = self.fc2(out)
@@ -222,19 +222,19 @@ total_step = len(train_loader)
 
 if __name__ == '__main__':
     for epoch in range(num_epochs):
-        print("Shit is trainging")
+       # print("Shit is trainging")
         for i, (images, labels) in enumerate(train_loader):  
             # Move tensors to the configured device
             images = images.to(device)
             labels = labels.to(device)
-            print(labels)
-            print("Data loded")
+            #print(labels)
+            #print("Data loded")
             
             # Forward pass
             outputs = model(images)
-            print(outputs)
+            #print(outputs)
             loss = criterion(outputs, labels)
-            print("Forward Pass")
+            #print("Forward Pass")
         
             # Backward and optimize
             optimizer.zero_grad()
